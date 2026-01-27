@@ -12,7 +12,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.teal,
+      backgroundColor: Colors.teal[400],
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -21,9 +21,12 @@ class _HomeState extends State<Home> {
                 onPressed: (){
                   Navigator.pushNamed(context, '/maths_puzzle');
                 },
-                child: const Text(
-                  "    Start    ",
-                  style: TextStyle(fontSize: 20),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: const Text(
+                    "Start",
+                    style: TextStyle(fontSize: 20),
+                  ),
                 )
             ),
             const SizedBox(height: 20),
@@ -31,9 +34,12 @@ class _HomeState extends State<Home> {
                 onPressed: (){
                   Navigator.pushNamed(context, '/about');
                 },
-                child: const Text(
-                  "    About    ",
-                  style: TextStyle(fontSize: 20),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: const Text(
+                    "About",
+                    style: TextStyle(fontSize: 20),
+                  ),
                 )
             ),
           ],

@@ -32,12 +32,15 @@ class _MathsPuzzleState extends State<MathsPuzzle> {
 
       body: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: List.generate(5, (rowIndex) {
             return Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: List.generate(5, (colIndex) {
                 return Container(
-                  width: 60,
-                  height: 60,
+                  width: 70,
+                  height: 70,
+                  margin: EdgeInsets.all(5),
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.grey, width: 2),
                     borderRadius: BorderRadius.circular(4),

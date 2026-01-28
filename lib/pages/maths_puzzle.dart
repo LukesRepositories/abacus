@@ -45,25 +45,88 @@ class _MathsPuzzleState extends State<MathsPuzzle> {
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: List.generate(5, (colIndex) {
-                    return Container(
-                      width: 70,
-                      height: 70,
-                      margin: EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey, width: 2),
-                        borderRadius: BorderRadius.circular(4),
-                        color: _boxColour, // Changes based on game state
-                      ),
-                      child: Center(
-                        child: Text(
-                          getBoxContent(colIndex, rowIndex),
-                          style: TextStyle(
-                            fontSize: 32,
-                            fontWeight: FontWeight.bold,
+                    if(colIndex == 1) {
+                      return Container(
+                        width: 70,
+                        height: 70,
+                        margin: EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey, width: 2),
+                          borderRadius: BorderRadius.circular(4),
+                          color: _boxColour, // Changes based on game state
+                        ),
+                        child: Center(
+                          child: Text(
+                            "+",
+                            style: TextStyle(
+                              fontSize: 32,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
-                      ),
-                    );
+                      );
+                    }
+                    else if(colIndex == 3) {
+                      return Container(
+                        width: 70,
+                        height: 70,
+                        margin: EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey, width: 2),
+                          borderRadius: BorderRadius.circular(4),
+                          color: _boxColour, // Changes based on game state
+                        ),
+                        child: Center(
+                          child: Text(
+                            "=",
+                            style: TextStyle(
+                              fontSize: 32,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      );
+                    }
+                    else if(colIndex == 4) {
+                      return Container(
+                        width: 70,
+                        height: 70,
+                        margin: EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey, width: 2),
+                          borderRadius: BorderRadius.circular(4),
+                          color: _boxColour, // Changes based on game state
+                        ),
+                        child: Center(
+                          child: TextField(
+                            decoration: InputDecoration(
+
+                            ),
+                          ),
+                        ),
+                      );
+                    } else {
+                      return Container(
+                        width: 70,
+                        height: 70,
+                        margin: EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey, width: 2),
+                          borderRadius: BorderRadius.circular(4),
+                          color: _boxColour, // Changes based on game state
+                        ),
+                        child: Center(
+                          child: Text(
+                            getBoxContent(colIndex, rowIndex),
+                            style: TextStyle(
+                              fontSize: 32,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      );
+                    }
+
                   }),
                 );
               }),

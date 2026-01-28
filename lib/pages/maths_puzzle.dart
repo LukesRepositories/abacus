@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class MathsPuzzle extends StatefulWidget {
   const MathsPuzzle({super.key});
@@ -99,6 +100,10 @@ class _MathsPuzzleState extends State<MathsPuzzle> {
                         ),
                         child: Center(
                           child: TextField(
+                            keyboardType: TextInputType.number,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly,  // Only allows digits 0-9
+                            ],
                             decoration: InputDecoration(
                               border: InputBorder.none,
                             ),

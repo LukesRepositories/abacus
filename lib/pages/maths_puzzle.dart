@@ -100,7 +100,12 @@ class _MathsPuzzleState extends State<MathsPuzzle> {
                         child: Center(
                           child: TextField(
                             decoration: InputDecoration(
-
+                              border: InputBorder.none,
+                            ),
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 32,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
                         ),

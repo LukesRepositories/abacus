@@ -13,6 +13,12 @@ class _MathsPuzzleState extends State<MathsPuzzle> {
   int _numberA1 = 0;
   String _numberStringA1 = "";
 
+  String getBoxContent(int col, int row) {
+    String boxContent = col.toString() + " " + row.toString();
+
+    return boxContent;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,33 +38,43 @@ class _MathsPuzzleState extends State<MathsPuzzle> {
 
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: List.generate(5, (rowIndex) {
-            return Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: List.generate(5, (colIndex) {
-                return Container(
-                  width: 70,
-                  height: 70,
-                  margin: EdgeInsets.all(5),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey, width: 2),
-                    borderRadius: BorderRadius.circular(4),
-                    color: _boxColour, // Changes based on game state
-                  ),
-                  child: Center(
-                    child: Text(
-                      _numberStringA1,
-                      style: TextStyle(
-                        fontSize: 32,
-                        fontWeight: FontWeight.bold,
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: List.generate(5, (rowIndex) {
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: List.generate(5, (colIndex) {
+                    return Container(
+                      width: 70,
+                      height: 70,
+                      margin: EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey, width: 2),
+                        borderRadius: BorderRadius.circular(4),
+                        color: _boxColour, // Changes based on game state
                       ),
-                    ),
-                  ),
+                      child: Center(
+                        child: Text(
+                          getBoxContent(colIndex, rowIndex),
+                          style: TextStyle(
+                            fontSize: 32,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    );
+                  }),
                 );
               }),
-            );
-          }),
+            ),
+            TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: "Enter sandman",
+              ),
+            )
+          ],
         ),
       )
     );

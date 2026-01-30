@@ -1,18 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class MathsPuzzle extends StatefulWidget {
-  const MathsPuzzle({super.key});
+import 'package:abacus/services/arithmetic_puzzle.dart';
+import 'package:abacus/model/arithmetic_puzzle/maths_puzzle.dart';
+
+class ArithmeticPuzzle extends StatefulWidget {
+  const ArithmeticPuzzle({super.key});
 
   @override
-  State<MathsPuzzle> createState() => _MathsPuzzleState();
+  State<ArithmeticPuzzle> createState() => _ArithmeticPuzzleState();
 }
 
-class _MathsPuzzleState extends State<MathsPuzzle> {
+class _ArithmeticPuzzleState extends State<ArithmeticPuzzle> {
 
   Color _boxColour = Colors.white;
   int _numberA1 = 0;
   String _numberStringA1 = "";
+
+  ArithmeticPuzzleService puzzleService = ArithmeticPuzzleService();
+
+  late MathsPuzzleObject puzzleObject = puzzleService.generatePuzzle();
 
   String getBoxContent(int col, int row) {
     String boxContent = col.toString() + " " + row.toString();
@@ -46,7 +53,7 @@ class _MathsPuzzleState extends State<MathsPuzzle> {
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: List.generate(5, (colIndex) {
-                    if(colIndex == 1) {
+                    if(colIndex == 0) {
                       return Container(
                         width: 70,
                         height: 70,
@@ -58,7 +65,49 @@ class _MathsPuzzleState extends State<MathsPuzzle> {
                         ),
                         child: Center(
                           child: Text(
-                            "+",
+                            puzzleObject.firstNumber.toString(),
+                            style: TextStyle(
+                              fontSize: 32,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      );
+                    }
+                    else if(colIndex == 1) {
+                      return Container(
+                        width: 70,
+                        height: 70,
+                        margin: EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey, width: 2),
+                          borderRadius: BorderRadius.circular(4),
+                          color: _boxColour, // Changes based on game state
+                        ),
+                        child: Center(
+                          child: Text(
+                            puzzleObject.operator,
+                            style: TextStyle(
+                              fontSize: 32,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      );
+                    }
+                    else if(colIndex == 2) {
+                      return Container(
+                        width: 70,
+                        height: 70,
+                        margin: EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey, width: 2),
+                          borderRadius: BorderRadius.circular(4),
+                          color: _boxColour, // Changes based on game state
+                        ),
+                        child: Center(
+                          child: Text(
+                            puzzleObject.secondNumber.toString(),
                             style: TextStyle(
                               fontSize: 32,
                               fontWeight: FontWeight.bold,
@@ -115,7 +164,8 @@ class _MathsPuzzleState extends State<MathsPuzzle> {
                           ),
                         ),
                       );
-                    } else {
+                    }
+                    else {
                       return Container(
                         width: 70,
                         height: 70,
@@ -136,7 +186,6 @@ class _MathsPuzzleState extends State<MathsPuzzle> {
                         ),
                       );
                     }
-
                   }),
                 );
               }),

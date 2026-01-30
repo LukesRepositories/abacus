@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:abacus/pages/home.dart';
 import 'package:abacus/pages/about.dart';
-import 'package:abacus/pages/maths_puzzle.dart';
+import 'package:abacus/pages/arithmetic_puzzle.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -9,7 +9,7 @@ void main() {
     routes: {
       '/home': (context) => Home(),
       '/about': (context) => About(),
-      '/maths_puzzle': (context) => MathsPuzzle(),
+      '/arithmetic_puzzle': (context) => ArithmeticPuzzle(),
     },
   ));
 }

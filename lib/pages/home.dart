@@ -19,7 +19,7 @@ class _HomeState extends State<Home> {
           children: [
             ElevatedButton(
                 onPressed: (){
-                  Navigator.pushNamed(context, '/maths_puzzle');
+                  Navigator.pushNamed(context, '/arithmetic_puzzle');
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),

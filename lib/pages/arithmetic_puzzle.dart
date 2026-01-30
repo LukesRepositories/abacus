@@ -52,141 +52,110 @@ class _ArithmeticPuzzleState extends State<ArithmeticPuzzle> {
               children: List.generate(5, (rowIndex) {
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: List.generate(5, (colIndex) {
-                    if(colIndex == 0) {
-                      return Container(
-                        width: 70,
-                        height: 70,
-                        margin: EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey, width: 2),
-                          borderRadius: BorderRadius.circular(4),
-                          color: _boxColour, // Changes based on game state
-                        ),
-                        child: Center(
-                          child: Text(
-                            puzzleObject.firstNumber.toString(),
-                            style: TextStyle(
-                              fontSize: 32,
-                              fontWeight: FontWeight.bold,
-                            ),
+                  children: [
+                    Container(
+                      width: 70,
+                      height: 70,
+                      margin: EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey, width: 2),
+                        borderRadius: BorderRadius.circular(4),
+                        color: _boxColour, // Changes based on game state
+                      ),
+                      child: Center(
+                        child: Text(
+                          puzzleObject.firstNumber.toString(),
+                          style: TextStyle(
+                            fontSize: 32,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
-                      );
-                    }
-                    else if(colIndex == 1) {
-                      return Container(
-                        width: 70,
-                        height: 70,
-                        margin: EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey, width: 2),
-                          borderRadius: BorderRadius.circular(4),
-                          color: _boxColour, // Changes based on game state
-                        ),
-                        child: Center(
-                          child: Text(
-                            puzzleObject.operator,
-                            style: TextStyle(
-                              fontSize: 32,
-                              fontWeight: FontWeight.bold,
-                            ),
+                      ),
+                    ),
+                    Container(
+                      width: 70,
+                      height: 70,
+                      margin: EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey, width: 2),
+                        borderRadius: BorderRadius.circular(4),
+                        color: _boxColour, // Changes based on game state
+                      ),
+                      child: Center(
+                        child: Text(
+                          puzzleObject.operator,
+                          style: TextStyle(
+                            fontSize: 32,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
-                      );
-                    }
-                    else if(colIndex == 2) {
-                      return Container(
-                        width: 70,
-                        height: 70,
-                        margin: EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey, width: 2),
-                          borderRadius: BorderRadius.circular(4),
-                          color: _boxColour, // Changes based on game state
-                        ),
-                        child: Center(
-                          child: Text(
-                            puzzleObject.secondNumber.toString(),
-                            style: TextStyle(
-                              fontSize: 32,
-                              fontWeight: FontWeight.bold,
-                            ),
+                      ),
+                    ),
+                    Container(
+                      width: 70,
+                      height: 70,
+                      margin: EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey, width: 2),
+                        borderRadius: BorderRadius.circular(4),
+                        color: _boxColour, // Changes based on game state
+                      ),
+                      child: Center(
+                        child: Text(
+                          puzzleObject.secondNumber.toString(),
+                          style: TextStyle(
+                            fontSize: 32,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
-                      );
-                    }
-                    else if(colIndex == 3) {
-                      return Container(
-                        width: 70,
-                        height: 70,
-                        margin: EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey, width: 2),
-                          borderRadius: BorderRadius.circular(4),
-                          color: _boxColour, // Changes based on game state
-                        ),
-                        child: Center(
-                          child: Text(
-                            "=",
-                            style: TextStyle(
-                              fontSize: 32,
-                              fontWeight: FontWeight.bold,
-                            ),
+                      ),
+                    ),
+                    Container(
+                      width: 70,
+                      height: 70,
+                      margin: EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey, width: 2),
+                        borderRadius: BorderRadius.circular(4),
+                        color: _boxColour, // Changes based on game state
+                      ),
+                      child: Center(
+                        child: Text(
+                          "=",
+                          style: TextStyle(
+                            fontSize: 32,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
-                      );
-                    }
-                    else if(colIndex == 4) {
-                      return Container(
-                        width: 70,
-                        height: 70,
-                        margin: EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey, width: 2),
-                          borderRadius: BorderRadius.circular(4),
-                          color: _boxColour, // Changes based on game state
-                        ),
-                        child: Center(
-                          child: TextField(
-                            keyboardType: TextInputType.number,
-                            inputFormatters: [
-                              FilteringTextInputFormatter.digitsOnly,  // Only allows digits 0-9
-                            ],
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                            ),
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 32,
-                              fontWeight: FontWeight.bold,
-                            ),
+                      ),
+                    ),
+                    Container(
+                      width: 70,
+                      height: 70,
+                      margin: EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey, width: 2),
+                        borderRadius: BorderRadius.circular(4),
+                        color: _boxColour, // Changes based on game state
+                      ),
+                      child: Center(
+                        child: TextField(
+                          keyboardType: TextInputType.number,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly,  // Only allows digits 0-9
+                          ],
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                          ),
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 32,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
-                      );
-                    }
-                    else {
-                      return Container(
-                        width: 70,
-                        height: 70,
-                        margin: EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey, width: 2),
-                          borderRadius: BorderRadius.circular(4),
-                          color: _boxColour, // Changes based on game state
-                        ),
-                        child: Center(
-                          child: Text(
-                            getBoxContent(colIndex, rowIndex),
-                            style: TextStyle(
-                              fontSize: 32,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      );
-                    }
-                  }),
+                      ),
+                    ),
+                  ],
                 );
               }),
             ),

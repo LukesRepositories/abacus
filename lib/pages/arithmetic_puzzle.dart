@@ -59,7 +59,7 @@ class _ArithmeticPuzzleState extends State<ArithmeticPuzzle> {
                       margin: EdgeInsets.all(5),
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.grey, width: 2),
-                        borderRadius: BorderRadius.circular(4),
+                        borderRadius: BorderRadius.circular(8),
                         color: _boxColour, // Changes based on game state
                       ),
                       child: Center(
@@ -78,7 +78,7 @@ class _ArithmeticPuzzleState extends State<ArithmeticPuzzle> {
                       margin: EdgeInsets.all(5),
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.grey, width: 2),
-                        borderRadius: BorderRadius.circular(4),
+                        borderRadius: BorderRadius.circular(8),
                         color: _boxColour, // Changes based on game state
                       ),
                       child: Center(
@@ -97,7 +97,7 @@ class _ArithmeticPuzzleState extends State<ArithmeticPuzzle> {
                       margin: EdgeInsets.all(5),
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.grey, width: 2),
-                        borderRadius: BorderRadius.circular(4),
+                        borderRadius: BorderRadius.circular(8),
                         color: _boxColour, // Changes based on game state
                       ),
                       child: Center(
@@ -116,7 +116,7 @@ class _ArithmeticPuzzleState extends State<ArithmeticPuzzle> {
                       margin: EdgeInsets.all(5),
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.grey, width: 2),
-                        borderRadius: BorderRadius.circular(4),
+                        borderRadius: BorderRadius.circular(8),
                         color: _boxColour, // Changes based on game state
                       ),
                       child: Center(
@@ -135,7 +135,7 @@ class _ArithmeticPuzzleState extends State<ArithmeticPuzzle> {
                       margin: EdgeInsets.all(5),
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.grey, width: 2),
-                        borderRadius: BorderRadius.circular(4),
+                        borderRadius: BorderRadius.circular(8),
                         color: _boxColour, // Changes based on game state
                       ),
                       child: Center(

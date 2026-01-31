@@ -6,11 +6,11 @@ import 'package:abacus/model/arithmetic_puzzle/maths_puzzle.dart';
 // Add try catch statements
 // Make sure numbers are divisible to a whole number
 
-class ArithmeticPuzzleService {
+class PuzzleGenerator {
 
   MathsPuzzleObject generatePuzzle() {
-    int tempFirst = Random().nextInt(9);
-    int tempSecond = Random().nextInt(9);
+    int tempFirst = Random().nextInt(99)+1;
+    int tempSecond = Random().nextInt(9)+1;
 
     List<String> operators = ['x', '+', '-', '÷'];
     String tempOperator = operators[Random().nextInt(operators.length)];

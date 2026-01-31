@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:abacus/services/arithmetic_puzzle.dart';
+import 'package:abacus/services/puzzle_generator.dart';
 import 'package:abacus/model/arithmetic_puzzle/maths_puzzle.dart';
 
 class ArithmeticPuzzle extends StatefulWidget {
@@ -17,15 +17,9 @@ class _ArithmeticPuzzleState extends State<ArithmeticPuzzle> {
   int _numberA1 = 0;
   String _numberStringA1 = "";
 
-  ArithmeticPuzzleService puzzleService = ArithmeticPuzzleService();
+  PuzzleGenerator puzzleService = PuzzleGenerator();
 
   late MathsPuzzleObject puzzleObject = puzzleService.generatePuzzle();
-
-  String getBoxContent(int col, int row) {
-    String boxContent = col.toString() + " " + row.toString();
-
-    return boxContent;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +27,7 @@ class _ArithmeticPuzzleState extends State<ArithmeticPuzzle> {
       backgroundColor: Colors.teal[400],
 
       appBar: AppBar(
-        title: const Text("Maths Puzzle"),
+        title: const Text("Arithmetic Teaser"),
         backgroundColor: Colors.teal[800],
         iconTheme: IconThemeData(
           color: Colors.white,
@@ -50,6 +44,7 @@ class _ArithmeticPuzzleState extends State<ArithmeticPuzzle> {
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: List.generate(5, (rowIndex) {
+                puzzleObject = puzzleService.generatePuzzle();
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -159,12 +154,7 @@ class _ArithmeticPuzzleState extends State<ArithmeticPuzzle> {
                 );
               }),
             ),
-            TextField(
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: "Enter sandman",
-              ),
-            )
+
           ],
         ),
       )

@@ -14,12 +14,10 @@ class ArithmeticPuzzle extends StatefulWidget {
 class _ArithmeticPuzzleState extends State<ArithmeticPuzzle> {
 
   Color _boxColour = Colors.white;
-  int _numberA1 = 0;
-  String _numberStringA1 = "";
 
   PuzzleGenerator puzzleService = PuzzleGenerator();
 
-  late MathsPuzzleObject puzzleObject = puzzleService.generatePuzzle();
+  late MathsPuzzleObject puzzleObject = puzzleService.generatePuzzle(0);
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +42,7 @@ class _ArithmeticPuzzleState extends State<ArithmeticPuzzle> {
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: List.generate(5, (rowIndex) {
-                puzzleObject = puzzleService.generatePuzzle();
+                puzzleObject = puzzleService.generatePuzzle(rowIndex);
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

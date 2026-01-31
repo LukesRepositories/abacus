@@ -8,27 +8,68 @@ import 'package:abacus/model/arithmetic_puzzle/maths_puzzle.dart';
 
 class PuzzleGenerator {
 
-  MathsPuzzleObject generatePuzzle() {
-    int tempFirst = Random().nextInt(99)+1;
-    int tempSecond = Random().nextInt(9)+1;
-
-    List<String> operators = ['x', '+', '-', '÷'];
-    String tempOperator = operators[Random().nextInt(operators.length)];
-
+  MathsPuzzleObject generatePuzzle(int rowIndex) {
+    // Initialise variables
+    int tempFirst = 0;
+    int tempSecond = 0;
     int tempAnswer = 0;
+    String tempOperator = "";
 
-    if(tempOperator == 'x') {
-      tempAnswer = tempFirst * tempSecond;
-    } else if(tempOperator == '+') {
-      tempAnswer = tempFirst + tempSecond;
-    } else if(tempOperator == '-') {
-      tempAnswer = tempFirst - tempSecond;
-    } else if(tempOperator == '÷') {
-      tempAnswer = tempFirst ~/ tempSecond;
+    switch(rowIndex) {
+      case 0:
+        tempFirst = Random().nextInt(98)+1;
+        tempOperator = "x";
+        tempSecond = Random().nextInt(19)+1;
+        tempAnswer = tempFirst * tempSecond;
+        break;
+
+      case 1:
+        tempFirst = Random().nextInt(98)+1;
+        tempOperator = "+";
+        tempSecond = Random().nextInt(98)+1;
+        tempAnswer = tempFirst + tempSecond;
+        break;
+
+      case 2:
+        tempFirst = Random().nextInt(98)+1;
+        tempOperator = "-";
+        tempSecond = Random().nextInt(98)+1;
+        if(tempFirst < tempSecond) {
+          int temp = tempFirst;
+          tempFirst = tempSecond;
+          tempSecond = temp;
+        }
+        tempAnswer = tempFirst - tempSecond;
+        break;
+
+      case 3:
+        tempFirst = Random().nextInt(98)+1;
+        tempOperator = "÷";
+        tempSecond = Random().nextInt(11)+1;
+        if(tempFirst % tempSecond != 0) {
+          for(int i = 0; i <= 6; i++){
+            if((tempFirst+i) % tempSecond == 0){
+              tempFirst = tempFirst + i;
+              break;
+            }
+            if((tempFirst-i) % tempSecond == 0){
+              tempFirst = tempFirst - i;
+              break;
+            }
+          }
+        }
+        tempAnswer = tempFirst ~/ tempSecond;
+        break;
+
+      default:
+        tempFirst = Random().nextInt(98)+1;
+        tempOperator = "x";
+        tempSecond = Random().nextInt(19)+1;
+        tempAnswer = tempFirst * tempSecond;
+        break;
     }
 
     MathsPuzzleObject puzzle = MathsPuzzleObject(tempFirst, tempOperator, tempSecond, tempAnswer);
-
     return puzzle;
   }
 

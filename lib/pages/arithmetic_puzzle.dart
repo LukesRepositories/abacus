@@ -13,11 +13,18 @@ class ArithmeticPuzzle extends StatefulWidget {
 
 class _ArithmeticPuzzleState extends State<ArithmeticPuzzle> {
 
-  Color _boxColour = Colors.white;
+  late List<Color> rowColours;
+  late List<MathsPuzzleObject> questions;
 
   PuzzleGenerator puzzleService = PuzzleGenerator();
 
-  late MathsPuzzleObject puzzleObject = puzzleService.generatePuzzle(0);
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    rowColours = List.generate(5, (i) => Colors.white);
+    questions = List.generate(5, (i) => puzzleService.generatePuzzle(i));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +49,6 @@ class _ArithmeticPuzzleState extends State<ArithmeticPuzzle> {
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: List.generate(5, (rowIndex) {
-                puzzleObject = puzzleService.generatePuzzle(rowIndex);
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -53,11 +59,11 @@ class _ArithmeticPuzzleState extends State<ArithmeticPuzzle> {
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.grey, width: 2),
                         borderRadius: BorderRadius.circular(8),
-                        color: _boxColour, // Changes based on game state
+                        color: rowColours[rowIndex], // Changes based on game state
                       ),
                       child: Center(
                         child: Text(
-                          puzzleObject.firstNumber.toString(),
+                          questions[rowIndex].firstNumber.toString(),
                           style: TextStyle(
                             fontSize: 32,
                             fontWeight: FontWeight.bold,
@@ -72,11 +78,11 @@ class _ArithmeticPuzzleState extends State<ArithmeticPuzzle> {
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.grey, width: 2),
                         borderRadius: BorderRadius.circular(8),
-                        color: _boxColour, // Changes based on game state
+                        color: rowColours[rowIndex], // Changes based on game state
                       ),
                       child: Center(
                         child: Text(
-                          puzzleObject.operator,
+                          questions[rowIndex].operator,
                           style: TextStyle(
                             fontSize: 32,
                             fontWeight: FontWeight.bold,
@@ -91,11 +97,11 @@ class _ArithmeticPuzzleState extends State<ArithmeticPuzzle> {
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.grey, width: 2),
                         borderRadius: BorderRadius.circular(8),
-                        color: _boxColour, // Changes based on game state
+                        color: rowColours[rowIndex], // Changes based on game state
                       ),
                       child: Center(
                         child: Text(
-                          puzzleObject.secondNumber.toString(),
+                          questions[rowIndex].secondNumber.toString(),
                           style: TextStyle(
                             fontSize: 32,
                             fontWeight: FontWeight.bold,
@@ -110,7 +116,7 @@ class _ArithmeticPuzzleState extends State<ArithmeticPuzzle> {
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.grey, width: 2),
                         borderRadius: BorderRadius.circular(8),
-                        color: _boxColour, // Changes based on game state
+                        color: rowColours[rowIndex], // Changes based on game state
                       ),
                       child: Center(
                         child: Text(
@@ -129,7 +135,7 @@ class _ArithmeticPuzzleState extends State<ArithmeticPuzzle> {
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.grey, width: 2),
                         borderRadius: BorderRadius.circular(8),
-                        color: _boxColour, // Changes based on game state
+                        color: rowColours[rowIndex], // Changes based on game state
                       ),
                       child: Center(
                         child: TextField(
@@ -145,6 +151,15 @@ class _ArithmeticPuzzleState extends State<ArithmeticPuzzle> {
                             fontSize: 32,
                             fontWeight: FontWeight.bold,
                           ),
+                          onSubmitted: (value){
+                            setState(() {
+                              if(int.parse(value ?? '0') == questions[rowIndex].answer){
+                                rowColours[rowIndex] = Colors.green;
+                              } else {
+                                rowColours[rowIndex] = Colors.red;
+                              }
+                            });
+                          },
                         ),
                       ),
                     ),

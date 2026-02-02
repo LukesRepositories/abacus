@@ -14,6 +14,7 @@ class ArithmeticPuzzle extends StatefulWidget {
 class _ArithmeticPuzzleState extends State<ArithmeticPuzzle> {
 
   late List<Color> rowColours;
+  late List<bool> isLockedList;
   late List<MathsPuzzleObject> questions;
 
   PuzzleGenerator puzzleService = PuzzleGenerator();
@@ -24,6 +25,7 @@ class _ArithmeticPuzzleState extends State<ArithmeticPuzzle> {
     super.initState();
     rowColours = List.generate(5, (i) => Colors.white);
     questions = List.generate(5, (i) => puzzleService.generatePuzzle(i));
+    isLockedList = List.generate(5, (i) => false);
   }
 
   @override
@@ -140,6 +142,7 @@ class _ArithmeticPuzzleState extends State<ArithmeticPuzzle> {
                       child: Center(
                         child: TextField(
                           keyboardType: TextInputType.number,
+                          readOnly: isLockedList[rowIndex],
                           inputFormatters: [
                             FilteringTextInputFormatter.digitsOnly,  // Only allows digits 0-9
                           ],
@@ -153,6 +156,7 @@ class _ArithmeticPuzzleState extends State<ArithmeticPuzzle> {
                           ),
                           onSubmitted: (value){
                             setState(() {
+                              isLockedList[rowIndex] = true;
                               if(int.parse(value ?? '0') == questions[rowIndex].answer){
                                 rowColours[rowIndex] = Colors.green;
                               } else {

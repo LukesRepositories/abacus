@@ -16,6 +16,7 @@ class _ArithmeticPuzzleState extends State<ArithmeticPuzzle> {
   late List<Color> rowColours;
   late List<bool> isLockedList;
   late List<MathsPuzzleObject> questions;
+  late List<FocusNode> focusNodes;
 
   PuzzleGenerator puzzleService = PuzzleGenerator();
 
@@ -26,6 +27,17 @@ class _ArithmeticPuzzleState extends State<ArithmeticPuzzle> {
     rowColours = List.generate(5, (i) => Colors.white);
     questions = List.generate(5, (i) => puzzleService.generatePuzzle(i));
     isLockedList = List.generate(5, (i) => false);
+    focusNodes = List.generate(5, (i) => FocusNode());
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    for(var node in focusNodes) {
+      node.dispose();
+    }
+
+    super.dispose();
   }
 
   @override
@@ -143,6 +155,7 @@ class _ArithmeticPuzzleState extends State<ArithmeticPuzzle> {
                         child: TextField(
                           keyboardType: TextInputType.number,
                           readOnly: isLockedList[rowIndex],
+                          focusNode: focusNodes[rowIndex],
                           inputFormatters: [
                             FilteringTextInputFormatter.digitsOnly,  // Only allows digits 0-9
                           ],
@@ -157,6 +170,7 @@ class _ArithmeticPuzzleState extends State<ArithmeticPuzzle> {
                           onSubmitted: (value){
                             setState(() {
                               isLockedList[rowIndex] = true;
+                              if(rowIndex < 4) focusNodes[rowIndex+1].requestFocus();
                               if(int.parse(value ?? '0') == questions[rowIndex].answer){
                                 rowColours[rowIndex] = Colors.green;
                               } else {

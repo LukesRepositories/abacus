@@ -17,6 +17,9 @@ class _ArithmeticPuzzleState extends State<ArithmeticPuzzle> {
   late List<bool> isLockedList;
   late List<MathsPuzzleObject> questions;
   late List<FocusNode> focusNodes;
+  late List<Duration> times;
+  Stopwatch stopwatch = Stopwatch();
+  int previousRow = 0;
 
   PuzzleGenerator puzzleService = PuzzleGenerator();
 
@@ -28,6 +31,8 @@ class _ArithmeticPuzzleState extends State<ArithmeticPuzzle> {
     questions = List.generate(5, (i) => puzzleService.generatePuzzle(i));
     isLockedList = List.generate(5, (i) => false);
     focusNodes = List.generate(5, (i) => FocusNode());
+    times = List.generate(5, (i) => Duration.zero);
+    stopwatch = stopwatch..start();
   }
 
   @override
@@ -168,15 +173,19 @@ class _ArithmeticPuzzleState extends State<ArithmeticPuzzle> {
                             fontWeight: FontWeight.bold,
                           ),
                           onSubmitted: (value){
-                            setState(() {
-                              isLockedList[rowIndex] = true;
-                              if(rowIndex < 4) focusNodes[rowIndex+1].requestFocus();
-                              if(int.parse(value ?? '0') == questions[rowIndex].answer){
-                                rowColours[rowIndex] = Colors.green;
-                              } else {
-                                rowColours[rowIndex] = Colors.red;
-                              }
-                            });
+                            if(value.isNotEmpty) {
+                              setState(() {
+                                times[rowIndex] = stopwatch.elapsed - times[previousRow];
+                                isLockedList[rowIndex] = true;
+                                previousRow = rowIndex;
+                                if(rowIndex < 4) focusNodes[rowIndex+1].requestFocus();
+                                if(int.parse(value ?? '0') == questions[rowIndex].answer){
+                                  rowColours[rowIndex] = Colors.green;
+                                } else {
+                                  rowColours[rowIndex] = Colors.red;
+                                }
+                              });
+                            }
                           },
                         ),
                       ),
@@ -186,6 +195,18 @@ class _ArithmeticPuzzleState extends State<ArithmeticPuzzle> {
               }),
             ),
 
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: List.generate(5, (rowIndex) {
+                return Row(
+                  children: [
+                    if(times[rowIndex] != Duration.zero) Text(
+                      "${times[rowIndex]}",
+                    ),
+                  ],
+                );
+              }),
+            )
           ],
         ),
       )

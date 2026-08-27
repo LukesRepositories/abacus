@@ -7,15 +7,21 @@ class Profile extends StatefulWidget {
   const Profile({super.key});
 
   @override
-  State<Profile> createState() => _ProfileState();
+  State<Profile> createState() => ProfileState();
 }
 
-class _ProfileState extends State<Profile> {
+class ProfileState extends State<Profile> {
   late Future<List<PuzzleSession>> _sessionsFuture;
 
   @override
   void initState() {
     super.initState();
+    _refresh();
+  }
+
+  // Public so Root can call it directly when this tab becomes visible again
+  // (IndexedStack keeps Profile alive, so initState only runs once overall).
+  void refresh() {
     _refresh();
   }
 

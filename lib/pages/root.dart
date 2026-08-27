@@ -18,6 +18,11 @@ class _RootState extends State<Root> {
   // (i.e. start a fresh puzzle) whenever the user taps its tab.
   Key _puzzleKey = UniqueKey();
 
+  // IndexedStack keeps Profile alive across tab switches rather than
+  // recreating it, so we hold a key to its State and call refresh()
+  // on it directly whenever the Profile tab is selected.
+  final GlobalKey<ProfileState> _profileKey = GlobalKey<ProfileState>();
+
   static const List<String> _titles = ["Home", "Puzzle", "Profile"];
 
   void _onItemTapped(int index) {
@@ -28,6 +33,12 @@ class _RootState extends State<Root> {
       }
       _selectedIndex = index;
     });
+
+    if (index == 2) {
+      // Re-query the database every time Profile is opened, so newly
+      // saved sessions show up without needing to restart the app.
+      _profileKey.currentState?.refresh();
+    }
   }
 
   @override
@@ -35,7 +46,7 @@ class _RootState extends State<Root> {
     final pages = [
       const Home(),
       ArithmeticPuzzle(key: _puzzleKey),
-      const Profile(),
+      Profile(key: _profileKey),
     ];
 
     return Scaffold(

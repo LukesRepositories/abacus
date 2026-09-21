@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -44,7 +45,7 @@ class _ProfileState extends State<Profile> {
             const SizedBox(height: 20),
             ElevatedButton(
                 onPressed: (){
-                  Navigator.pushNamed(context, '/about');
+                  context.push('/profile/about');
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),

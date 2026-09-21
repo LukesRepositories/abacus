@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:abacus/pages/home.dart';
-import 'package:abacus/pages/about.dart';
-import 'package:abacus/pages/arithmetic_puzzle.dart';
-import 'package:abacus/pages/profile.dart';
-import 'package:abacus/pages/map.dart';
-import 'package:abacus/pages/event.dart';
+import 'package:abacus/navigation.dart';
 
-void main() {
-  runApp(MaterialApp(
-    initialRoute: '/home',
-    routes: {
-      '/home': (context) => Home(),
-      '/about': (context) => About(),
-      '/arithmetic_puzzle': (context) => ArithmeticPuzzle(),
-      '/profile': (context) => Profile(),
-      '/map': (context) => Map(),
-      '/event': (context) => Event(),
-    },
-  ));
+void main() => runApp(const AbacusApp());
+
+class AbacusApp extends StatelessWidget {
+  const AbacusApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp.router(
+      routerConfig: router,
+      title: 'Abacus',
+      theme: ThemeData(
+        scaffoldBackgroundColor: Colors.teal[400],
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.teal[800],
+          iconTheme: const IconThemeData(color: Colors.white),
+          titleTextStyle: const TextStyle(color: Colors.white, fontSize: 24),
+        ),
+      ),
+    );
+  }
 }

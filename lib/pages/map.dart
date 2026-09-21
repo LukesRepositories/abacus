@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
-class Map extends StatefulWidget {
-  const Map({super.key});
+class MapPage extends StatefulWidget {
+  const MapPage({super.key});
 
   @override
-  State<Map> createState() => _MapState();
+  State<MapPage> createState() => _MapPageState();
 }
 
-class _MapState extends State<Map> {
+class _MapPageState extends State<MapPage> {
 
   final String _mapText = "This is the map page.";
 
@@ -44,7 +45,7 @@ class _MapState extends State<Map> {
             const SizedBox(height: 20),
             ElevatedButton(
                 onPressed: (){
-                  Navigator.pushNamed(context, '/event');
+                  context.push('/mapPage/event');
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),

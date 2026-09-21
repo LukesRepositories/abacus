@@ -24,7 +24,7 @@ class _HomeState extends State<Home> {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: const Text(
-                    "Start",
+                    "Puzzle",
                     style: TextStyle(fontSize: 20),
                   ),
                 )
@@ -32,12 +32,25 @@ class _HomeState extends State<Home> {
             const SizedBox(height: 20),
             ElevatedButton(
                 onPressed: (){
-                  Navigator.pushNamed(context, '/about');
+                  Navigator.pushNamed(context, '/map');
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: const Text(
-                    "About",
+                    "Map",
+                    style: TextStyle(fontSize: 20),
+                  ),
+                )
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+                onPressed: (){
+                  Navigator.pushNamed(context, '/profile');
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: const Text(
+                    "Profile",
                     style: TextStyle(fontSize: 20),
                   ),
                 )

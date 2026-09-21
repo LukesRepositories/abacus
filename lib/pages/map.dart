@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
 
-class About extends StatefulWidget {
-  const About({super.key});
+class Map extends StatefulWidget {
+  const Map({super.key});
 
   @override
-  State<About> createState() => _AboutState();
+  State<Map> createState() => _MapState();
 }
 
-class _AboutState extends State<About> {
+class _MapState extends State<Map> {
 
-  final String _aboutText = "My next steps for this project, set up a bottom navigation bar, save puzzle data locally via SQLite, then use Firebase or a similar alternative to create a login system.";
+  final String _mapText = "This is the map page.";
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.teal[400],
       appBar: AppBar(
-        title: const Text("About"),
+        title: const Text("Map"),
         backgroundColor: Colors.teal[800],
         iconTheme: IconThemeData(
-          color: Colors.white
+            color: Colors.white
         ),
         titleTextStyle: TextStyle(
           color: Colors.white,
@@ -33,13 +33,26 @@ class _AboutState extends State<About> {
             Padding(
               padding: EdgeInsets.all(15),
               child: Text(
-                _aboutText,
+                _mapText,
                 textAlign: TextAlign.justify,
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 20,
                 ),
               ),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+                onPressed: (){
+                  Navigator.pushNamed(context, '/event');
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: const Text(
+                    "Event",
+                    style: TextStyle(fontSize: 20),
+                  ),
+                )
             )
           ],
         ),

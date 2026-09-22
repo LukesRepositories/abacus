@@ -45,7 +45,7 @@ class _MapPageState extends State<MapPage> {
             const SizedBox(height: 20),
             ElevatedButton(
                 onPressed: (){
-                  context.push('/mapPage/event');
+                  context.pushNamed('event');
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),

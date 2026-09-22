@@ -45,7 +45,7 @@ class _ProfileState extends State<Profile> {
             const SizedBox(height: 20),
             ElevatedButton(
                 onPressed: (){
-                  context.push('/profile/about');
+                  context.pushNamed('about');
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -54,7 +54,20 @@ class _ProfileState extends State<Profile> {
                     style: TextStyle(fontSize: 20),
                   ),
                 )
-            )
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+                onPressed: (){
+                  context.pushNamed('event');
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: const Text(
+                    "Event",
+                    style: TextStyle(fontSize: 20),
+                  ),
+                )
+            ),
           ],
         ),
       ),

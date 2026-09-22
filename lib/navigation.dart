@@ -37,6 +37,7 @@ final GoRouter router = GoRouter(
               routes: [
                 GoRoute(
                   path: 'event', // no leading slash → resolves to /map/event
+                  name: 'event',
                   builder: (context, state) => const Event(),
                 ),
               ],
@@ -53,6 +54,7 @@ final GoRouter router = GoRouter(
               routes: [
                 GoRoute(
                   path: 'about',
+                  name: 'about',
                   builder: (context, state) => const About(),
                 ),
               ],

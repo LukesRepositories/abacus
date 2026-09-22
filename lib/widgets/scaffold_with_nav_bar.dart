@@ -18,28 +18,44 @@ class ScaffoldWithNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: navigationShell,
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: navigationShell.currentIndex,
-        onDestinationSelected: _onDestinationSelected,
-        backgroundColor: Colors.teal[800],
-        indicatorColor: Colors.teal[400],
-        destinations: const [
-          NavigationDestination(
-            icon: Icon(Icons.calculate_outlined),
-            selectedIcon: Icon(Icons.calculate),
-            label: 'Puzzle',
+      bottomNavigationBar: NavigationBarTheme(
+        data: NavigationBarThemeData(
+          iconTheme: const WidgetStatePropertyAll(
+            IconThemeData(
+              color: Colors.white,
+
+            )
           ),
-          NavigationDestination(
-            icon: Icon(Icons.map_outlined),
-            selectedIcon: Icon(Icons.map),
-            label: 'Map',
+          labelTextStyle: const WidgetStatePropertyAll(
+            TextStyle(
+              color: Colors.white,
+            ),
           ),
-          NavigationDestination(
-            icon: Icon(Icons.person_outline),
-            selectedIcon: Icon(Icons.person),
-            label: 'Profile',
-          ),
-        ],
+        ),
+
+        child: NavigationBar(
+          selectedIndex: navigationShell.currentIndex,
+          onDestinationSelected: _onDestinationSelected,
+          backgroundColor: Colors.teal[800],
+          indicatorColor: Colors.teal[400],
+          destinations: const [
+            NavigationDestination(
+              icon: Icon(Icons.calculate_outlined),
+              selectedIcon: Icon(Icons.calculate),
+              label: 'Puzzle',
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.map_outlined),
+              selectedIcon: Icon(Icons.map),
+              label: 'Map',
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.person_outline),
+              selectedIcon: Icon(Icons.person),
+              label: 'Profile',
+            ),
+          ],
+        ),
       ),
     );
   }

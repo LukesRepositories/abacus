@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 
 import 'package:abacus/model/arithmetic_puzzle/puzzle_session.dart';
 import 'package:abacus/services/database_helper.dart';
+=======
+import 'package:go_router/go_router.dart';
+>>>>>>> slow-develop
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
 
   @override
+<<<<<<< HEAD
   State<Profile> createState() => ProfileState();
 }
 
@@ -140,6 +145,14 @@ class ProfileState extends State<Profile> {
       ],
     );
   }
+=======
+  State<Profile> createState() => _ProfileState();
+}
+
+class _ProfileState extends State<Profile> {
+
+  final String _profileText = "This is the profile page.";
+>>>>>>> slow-develop
 
   @override
   Widget build(BuildContext context) {
@@ -148,6 +161,7 @@ class ProfileState extends State<Profile> {
       appBar: AppBar(
         title: const Text("Profile"),
         backgroundColor: Colors.teal[800],
+<<<<<<< HEAD
         iconTheme: const IconThemeData(color: Colors.white),
         titleTextStyle: const TextStyle(color: Colors.white, fontSize: 24),
         actions: [
@@ -254,3 +268,60 @@ class ProfileState extends State<Profile> {
     );
   }
 }
+=======
+        iconTheme: IconThemeData(
+            color: Colors.white
+        ),
+        titleTextStyle: TextStyle(
+          color: Colors.white,
+          fontSize: 24,
+        ),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: EdgeInsets.all(15),
+              child: Text(
+                _profileText,
+                textAlign: TextAlign.justify,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+                onPressed: (){
+                  context.pushNamed('about');
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: const Text(
+                    "About",
+                    style: TextStyle(fontSize: 20),
+                  ),
+                )
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+                onPressed: (){
+                  context.pushNamed('event');
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: const Text(
+                    "Event",
+                    style: TextStyle(fontSize: 20),
+                  ),
+                )
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+>>>>>>> slow-develop

@@ -9,11 +9,7 @@ class About extends StatefulWidget {
 
 class _AboutState extends State<About> {
 
-<<<<<<< HEAD
-  final String _aboutText = "This is a project I am undertaking to both improve my skills and to create something. I have also wanted to make a maths puzzle app for a while now with the idea to extend the scope to make it a social puzzle app with a variety of cerebral puzzles.  This is also a chance for me to work with Flutter more and get accustomed to it.";
-=======
   final String _aboutText = "My next steps for this project, set up a bottom navigation bar, save puzzle data locally via SQLite, then use Firebase or a similar alternative to create a login system.";
->>>>>>> slow-develop
 
   @override
   Widget build(BuildContext context) {

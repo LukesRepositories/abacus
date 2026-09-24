@@ -1,18 +1,4 @@
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
-import 'package:abacus/pages/root.dart';
-import 'package:abacus/pages/about.dart';
-
-void main() {
-  runApp(MaterialApp(
-    initialRoute: '/root',
-    routes: {
-      '/root': (context) => const Root(),
-      '/about': (context) => const About(),
-    },
-  ));
-}
-=======
 import 'package:abacus/navigation.dart';
 
 void main() => runApp(const AbacusApp());
@@ -36,4 +22,3 @@ class AbacusApp extends StatelessWidget {
     );
   }
 }
->>>>>>> slow-develop

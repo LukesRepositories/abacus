@@ -101,7 +101,7 @@ class _ArithmeticPuzzleState extends State<ArithmeticPuzzle> {
                       ),
                       child: Center(
                         child: Text(
-                          questions[rowIndex].operator,
+                          questions[rowIndex].operator.toString(),
                           style: TextStyle(
                             fontSize: 32,
                             fontWeight: FontWeight.bold,

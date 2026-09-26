@@ -1,18 +1,22 @@
 
 class MathsPuzzleObject {
-  bool isOrdOfOp = false;
-  int firstNumber = 0;
-  String operator = "";
-  int secondNumber = 0;
-  int answer = 0;
-  String orderOfOpString = "";
+  int? firstNumber;
+  String? operator;
+  int? secondNumber;
+  int? answer;
 
-  MathsPuzzleObject(int firstNumberArg, String operatorArg, int secondNumberArg, int answerArg) {
-    firstNumber = firstNumberArg;
-    operator = operatorArg;
-    secondNumber = secondNumberArg;
-    answer = answerArg;
-  }
+  MathsPuzzleObject(
+    this.firstNumber,
+    this.operator,
+    this.secondNumber,
+    this.answer,
+  );
 
+  MathsPuzzleObject.namedParams({
+    this.firstNumber,
+    this.operator,
+    this.secondNumber,
+    this.answer,
+  });
 
 }

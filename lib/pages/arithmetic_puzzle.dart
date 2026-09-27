@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 
 import 'package:abacus/services/puzzle_generator.dart';
 import 'package:abacus/model/arithmetic_puzzle/maths_puzzle.dart';
+import 'package:abacus/services/database_service.dart';
 
 class ArithmeticPuzzle extends StatefulWidget {
   const ArithmeticPuzzle({super.key});
@@ -16,23 +17,34 @@ class _ArithmeticPuzzleState extends State<ArithmeticPuzzle> {
   late List<Color> rowColours;
   late List<bool> isLockedList;
   late List<MathsPuzzleObject> questions;
+  int numQuestions = 5;
   late List<FocusNode> focusNodes;
-  late List<Duration> times;
   Stopwatch stopwatch = Stopwatch();
   int previousRow = 0;
 
+  String? difficulty; // = await DatabaseService.dataServiceInstance.getDifficulty();
+
   PuzzleGenerator puzzleService = PuzzleGenerator();
+
+  Future<void> _loadDifficulty() async {
+    final fromDB = await DatabaseService.dataServiceInstance.getDifficulty();
+    difficulty = fromDB;
+  }
+
+  void _resetPuzzleSession() {
+    _loadDifficulty();
+    rowColours = List.generate(numQuestions, (i) => Colors.white);
+    questions = List.generate(numQuestions, (i) => puzzleService.generatePuzzle(i, difficulty.toString()));
+    isLockedList = List.generate(numQuestions, (i) => false);
+    focusNodes = List.generate(numQuestions, (i) => FocusNode());
+    stopwatch = stopwatch..start();
+  }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    rowColours = List.generate(5, (i) => Colors.white);
-    questions = List.generate(5, (i) => puzzleService.generatePuzzle(i));
-    isLockedList = List.generate(5, (i) => false);
-    focusNodes = List.generate(5, (i) => FocusNode());
-    times = List.generate(5, (i) => Duration.zero);
-    stopwatch = stopwatch..start();
+    _resetPuzzleSession();
   }
 
   @override
@@ -41,7 +53,6 @@ class _ArithmeticPuzzleState extends State<ArithmeticPuzzle> {
     for(var node in focusNodes) {
       node.dispose();
     }
-
     super.dispose();
   }
 
@@ -175,14 +186,17 @@ class _ArithmeticPuzzleState extends State<ArithmeticPuzzle> {
                           onSubmitted: (value){
                             if(value.isNotEmpty) {
                               setState(() {
-                                times[rowIndex] = stopwatch.elapsed - times[previousRow];
                                 isLockedList[rowIndex] = true;
                                 previousRow = rowIndex;
-                                if(rowIndex < 4) focusNodes[rowIndex+1].requestFocus();
+                                if(rowIndex < numQuestions-1) focusNodes[rowIndex+1].requestFocus();
                                 if(int.parse(value ?? '0') == questions[rowIndex].answer){
                                   rowColours[rowIndex] = Colors.green;
                                 } else {
                                   rowColours[rowIndex] = Colors.red;
+                                }
+                                if(rowIndex == numQuestions-1) {
+                                  // Send to database to create new row
+
                                 }
                               });
                             }
@@ -195,18 +209,22 @@ class _ArithmeticPuzzleState extends State<ArithmeticPuzzle> {
               }),
             ),
 
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: List.generate(5, (rowIndex) {
-                return Row(
-                  children: [
-                    if(times[rowIndex] != Duration.zero) Text(
-                      "${times[rowIndex]}",
-                    ),
-                  ],
-                );
-              }),
-            )
+            const SizedBox(height: 20),
+            ElevatedButton(
+                onPressed: (){
+                  setState(() {
+                    _resetPuzzleSession();
+                  });
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: const Text(
+                    "Reset",
+                    style: TextStyle(fontSize: 20),
+                  ),
+                )
+            ),
+
           ],
         ),
       )

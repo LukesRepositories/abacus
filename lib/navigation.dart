@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:abacus/pages/arithmetic_puzzle.dart';
-import 'package:abacus/pages/map.dart';
+import 'package:abacus/pages/settings.dart';
 import 'package:abacus/pages/profile.dart';
 import 'package:abacus/pages/about.dart';
 import 'package:abacus/pages/event.dart';
@@ -32,8 +32,8 @@ final GoRouter router = GoRouter(
         StatefulShellBranch(
           routes: [
             GoRoute(
-              path: '/mapPage',
-              builder: (context, state) => const MapPage(),
+              path: '/settings',
+              builder: (context, state) => const Settings(),
               routes: [
                 GoRoute(
                   path: 'event', // no leading slash → resolves to /map/event

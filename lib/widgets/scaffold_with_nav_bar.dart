@@ -45,9 +45,9 @@ class ScaffoldWithNavBar extends StatelessWidget {
               label: 'Puzzle',
             ),
             NavigationDestination(
-              icon: Icon(Icons.map_outlined),
-              selectedIcon: Icon(Icons.map),
-              label: 'Map',
+              icon: Icon(Icons.settings_outlined),
+              selectedIcon: Icon(Icons.settings),
+              label: 'Settings',
             ),
             NavigationDestination(
               icon: Icon(Icons.person_outline),

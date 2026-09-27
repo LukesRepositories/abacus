@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 
 import 'package:abacus/services/puzzle_generator.dart';
 import 'package:abacus/model/arithmetic_puzzle/maths_puzzle.dart';
+import 'package:abacus/model/arithmetic_puzzle/puzzle_session.dart';
 import 'package:abacus/services/database_service.dart';
 
 class ArithmeticPuzzle extends StatefulWidget {
@@ -37,8 +38,24 @@ class _ArithmeticPuzzleState extends State<ArithmeticPuzzle> {
     questions = List.generate(numQuestions, (i) => puzzleService.generatePuzzle(i, difficulty.toString()));
     isLockedList = List.generate(numQuestions, (i) => false);
     focusNodes = List.generate(numQuestions, (i) => FocusNode());
-    stopwatch = stopwatch..start();
+    stopwatch = Stopwatch()..start();
+    previousRow = 0;
   }
+
+  Future<void> _logSession() async {
+    final int score = rowColours.where((colour) => colour == Colors.green).length;
+
+    final PuzzleSession session = PuzzleSession(
+      dateTime: DateTime.now(),
+      score: score,
+      total: numQuestions,
+      mode: difficulty ?? 'Medium',
+      totalTimeMs: stopwatch.elapsedMilliseconds,
+    );
+
+    await DatabaseService.dataServiceInstance.insertPuzzleSession(session);
+  }
+
 
   @override
   void initState() {
@@ -196,7 +213,10 @@ class _ArithmeticPuzzleState extends State<ArithmeticPuzzle> {
                                 }
                                 if(rowIndex == numQuestions-1) {
                                   // Send to database to create new row
-
+                                  stopwatch.stop();
+                                  _logSession();
+                                  // Possibly add pop up message
+                                  _showAlertDialogue(context);
                                 }
                               });
                             }
@@ -230,4 +250,20 @@ class _ArithmeticPuzzleState extends State<ArithmeticPuzzle> {
       )
     );
   }
+}
+
+void _showAlertDialogue(context) {
+  showDialog<String>(
+    context:  context,
+    builder: (BuildContext context) => AlertDialog(
+      title: const Text('Puzzle Session Saved'),
+      content: const Text('You did it in Nms'),
+      actions: <Widget>[
+        TextButton(
+          onPressed: () => Navigator.pop(context, 'OK'),
+          child: const Text('OK'),
+        ),
+      ],
+    ),
+  );
 }

@@ -30,6 +30,11 @@ class _ProfileState extends State<Profile> {
     });
   }
 
+  Future<void> _deleteSession(int id) async {
+    DatabaseService.dataServiceInstance.deletePuzzleSession(id);
+    _loadSessions();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -73,10 +78,23 @@ class _ProfileState extends State<Profile> {
                   final session = _sessions[index];
                   return Card(
                     margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                    child: ListTile(
-                      title: Text('${session.score} / ${session.total}'),
-                      subtitle: Text(session.mode),
-                      trailing: Text('${session.totalTimeMs} ms'),
+                    child: Column(
+                      children: [
+                        ListTile(
+                          title: Text('${session.score} / ${session.total}'),
+                          subtitle: Text(session.mode),
+                          trailing: Text('${session.totalTimeMs} ms'),
+                        ),
+                        ElevatedButton(
+                          onPressed: (){
+                            // Delete this session
+                            _deleteSession(session.id!);
+                          },
+                          child: Text(
+                            "Delete"
+                          ),
+                        )
+                      ],
                     ),
                   );
                 },

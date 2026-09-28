@@ -24,23 +24,25 @@ class _ArithmeticPuzzleState extends State<ArithmeticPuzzle> {
   late final List<FocusNode> focusNodes = List.generate(numQuestions, (_) => FocusNode());
   Stopwatch stopwatch = Stopwatch();
   int previousRow = 0;
-  String? difficulty = "Medium";
+  String? difficulty;
   bool isLoading = true;
 
   PuzzleGenerator puzzleService = PuzzleGenerator();
 
   Future<void> _resetPuzzleSession() async {
     final String loadedDifficulty = await DatabaseService.dataServiceInstance.getDifficulty();
-    difficulty = loadedDifficulty;
-    rowColours = List.generate(numQuestions, (i) => Colors.white);
-    questions = List.generate(numQuestions, (i) => puzzleService.generatePuzzle(i, difficulty.toString()));
-    isLockedList = List.generate(numQuestions, (i) => false);
-    for (final c in controllers) {
-      c.clear();
-    }
-    stopwatch = Stopwatch()..start();
-    previousRow = 0;
-    isLoading = false;
+    setState(() {
+      difficulty = loadedDifficulty;
+      rowColours = List.generate(numQuestions, (i) => Colors.white);
+      questions = List.generate(numQuestions, (i) => puzzleService.generatePuzzle(i, difficulty.toString()));
+      isLockedList = List.generate(numQuestions, (i) => false);
+      for (final c in controllers) {
+        c.clear();
+      }
+      stopwatch = Stopwatch()..start();
+      previousRow = 0;
+      isLoading = false;
+    });
   }
 
   Future<void> _logSession() async {

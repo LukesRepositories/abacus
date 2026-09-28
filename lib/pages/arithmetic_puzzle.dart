@@ -5,6 +5,7 @@ import 'package:abacus/services/puzzle_generator.dart';
 import 'package:abacus/model/arithmetic_puzzle/maths_puzzle.dart';
 import 'package:abacus/model/arithmetic_puzzle/puzzle_session.dart';
 import 'package:abacus/services/database_service.dart';
+import 'package:abacus/widgets/alert_dialogues.dart';
 
 class ArithmeticPuzzle extends StatefulWidget {
   const ArithmeticPuzzle({super.key});
@@ -15,31 +16,31 @@ class ArithmeticPuzzle extends StatefulWidget {
 
 class _ArithmeticPuzzleState extends State<ArithmeticPuzzle> {
 
-  late List<Color> rowColours;
+  late List<Color> rowColours = List.generate(numQuestions, (i) => Colors.white);
   late List<bool> isLockedList;
   late List<MathsPuzzleObject> questions;
   int numQuestions = 5;
-  late List<FocusNode> focusNodes;
+  late final List<TextEditingController> controllers = List.generate(numQuestions, (_) => TextEditingController());
+  late final List<FocusNode> focusNodes = List.generate(numQuestions, (_) => FocusNode());
   Stopwatch stopwatch = Stopwatch();
   int previousRow = 0;
-
-  String? difficulty; // = await DatabaseService.dataServiceInstance.getDifficulty();
+  String? difficulty = "Medium";
+  bool isLoading = true;
 
   PuzzleGenerator puzzleService = PuzzleGenerator();
 
-  Future<void> _loadDifficulty() async {
-    final fromDB = await DatabaseService.dataServiceInstance.getDifficulty();
-    difficulty = fromDB;
-  }
-
-  void _resetPuzzleSession() {
-    _loadDifficulty();
+  Future<void> _resetPuzzleSession() async {
+    final String loadedDifficulty = await DatabaseService.dataServiceInstance.getDifficulty();
+    difficulty = loadedDifficulty;
     rowColours = List.generate(numQuestions, (i) => Colors.white);
     questions = List.generate(numQuestions, (i) => puzzleService.generatePuzzle(i, difficulty.toString()));
     isLockedList = List.generate(numQuestions, (i) => false);
-    focusNodes = List.generate(numQuestions, (i) => FocusNode());
+    for (final c in controllers) {
+      c.clear();
+    }
     stopwatch = Stopwatch()..start();
     previousRow = 0;
+    isLoading = false;
   }
 
   Future<void> _logSession() async {
@@ -67,6 +68,9 @@ class _ArithmeticPuzzleState extends State<ArithmeticPuzzle> {
   @override
   void dispose() {
     // TODO: implement dispose
+    for (final c in controllers) {
+      c.dispose();
+    }
     for(var node in focusNodes) {
       node.dispose();
     }
@@ -90,7 +94,8 @@ class _ArithmeticPuzzleState extends State<ArithmeticPuzzle> {
         ),
       ),
 
-      body: Center(
+      body: isLoading ? const Center(child: CircularProgressIndicator(color: Colors.white))
+        : Center(
         child: Column(
           children: [
             Column(
@@ -186,6 +191,7 @@ class _ArithmeticPuzzleState extends State<ArithmeticPuzzle> {
                       ),
                       child: Center(
                         child: TextField(
+                          controller: controllers[rowIndex],
                           keyboardType: TextInputType.number,
                           readOnly: isLockedList[rowIndex],
                           focusNode: focusNodes[rowIndex],
@@ -216,7 +222,7 @@ class _ArithmeticPuzzleState extends State<ArithmeticPuzzle> {
                                   stopwatch.stop();
                                   _logSession();
                                   // Possibly add pop up message
-                                  _showAlertDialogue(context);
+                                  AlertDialogues.showSavedAlertDialogue(context);
                                 }
                               });
                             }
@@ -250,20 +256,4 @@ class _ArithmeticPuzzleState extends State<ArithmeticPuzzle> {
       )
     );
   }
-}
-
-void _showAlertDialogue(context) {
-  showDialog<String>(
-    context:  context,
-    builder: (BuildContext context) => AlertDialog(
-      title: const Text('Puzzle Session Saved'),
-      content: const Text('You did it in Nms'),
-      actions: <Widget>[
-        TextButton(
-          onPressed: () => Navigator.pop(context, 'OK'),
-          child: const Text('OK'),
-        ),
-      ],
-    ),
-  );
 }

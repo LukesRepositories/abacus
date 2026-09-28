@@ -5,7 +5,6 @@ import 'package:abacus/pages/arithmetic_puzzle.dart';
 import 'package:abacus/pages/settings.dart';
 import 'package:abacus/pages/profile.dart';
 import 'package:abacus/pages/about.dart';
-import 'package:abacus/pages/event.dart';
 import 'package:abacus/widgets/scaffold_with_nav_bar.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -34,13 +33,6 @@ final GoRouter router = GoRouter(
             GoRoute(
               path: '/settings',
               builder: (context, state) => const Settings(),
-              routes: [
-                GoRoute(
-                  path: 'event', // no leading slash → resolves to /map/event
-                  name: 'event',
-                  builder: (context, state) => const Event(),
-                ),
-              ],
             ),
           ],
         ),

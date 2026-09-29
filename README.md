@@ -116,7 +116,3 @@ flutter run
 - Statistics and progress charts on the Profile page
 - Formatting times as seconds/minutes rather than raw milliseconds
 - Additional puzzle modes
-
-## License
-
-Add your preferred licence here (e.g. MIT).
